@@ -2,26 +2,34 @@
 #define SERIALSENSOR_HPP
 
 #include <string>
-
 #include <serial/serial.h>
-
 #include "sensor.hpp"
 
 
 class SerialSensor : public Sensor
 {
     private:
-        std::string port;
-        int baudrate;
-        int timeout;
+        serial::Serial serial;
+        void reciveLine();
 
-    serial::Serial serial;
     public:
-        SerialSensor(std::string name, std::string port, int baudrate, int timeout);
-        void open() {
+        SerialSensor(std::string name, std::string port, int baudrate, uint32_t timeout = 1000);
+        virtual void testRun() override;
 
-        }
+};
 
+
+
+
+class SerialData : public Data
+{
+    private:
+        std::string line;
+    public:
+        SerialData(std::string data);
+
+        std::string toString() override;
+        
 };
 
 #endif

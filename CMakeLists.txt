@@ -4,6 +4,8 @@ project(sensor-operating-system VERSION 0.1.0 LANGUAGES C CXX)
 #include(CTest)
 #enable_testing()
 
+set(CMAKE_CXX_STANDARD 23)
+
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED
   PTHREADS REQUIRED)
@@ -15,14 +17,6 @@ add_executable(sensor-operating-system
             data.cpp
             serialSensor.cpp
             )
-
-# include(FetchContent)
-# FetchContent_declare(
-#   libserial
-#   GIT_REPOSITORY https://github.com/crayzeewulf/libserial.git
-#   GIT_TAG 461b19e2f883574b9d52b3eb94d25847ebfbd85a
-# )
-# FetchContent_makeavailable(libserial)
 
 include(FetchContent)
 FetchContent_Declare(

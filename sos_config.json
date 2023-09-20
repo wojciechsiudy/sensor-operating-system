@@ -12,7 +12,8 @@
                 "name": "counter",
                 "type": "serial",
                 "path": "/dev/ttyUSB0",
-                "baudrate": 115200
+                "baudrate": 115200,
+                "timeout": 10000
             },
             {
                 "name": "termometer",

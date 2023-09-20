@@ -2,18 +2,28 @@
 #define MANAGER_HPP
 
 
-#include <vector>
+#include <list>
+#include <memory>
 #include "sensor.hpp"
 
 
 class Manager {
     private:
-        std::vector<Sensor> sensors;
+        std::list<std::shared_ptr<Sensor>> sensors;
 
     public:
         Manager();
 
-        void addSensor(Sensor sensor);
+        /**
+         * Creates sensor based on input data
+        */
+        void createSensor(std::string inputData);
+
+        /**
+         * Quasi-test function
+        */
+        void testManager();
+
 };
 
 #endif

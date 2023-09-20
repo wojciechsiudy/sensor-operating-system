@@ -4,6 +4,6 @@ Data::Data() {
     this->timestamp = std::chrono::system_clock::now();
 }
 
-Data::Data(std::chrono::time_point<std::chrono::system_clock> timestamp) {
-    this->timestamp = timestamp;
+std::string Data::toString() {
+    return (std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(this->timestamp.time_since_epoch()).count()) + "|");
 }
