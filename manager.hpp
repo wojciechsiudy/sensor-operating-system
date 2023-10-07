@@ -4,28 +4,30 @@
 
 #include <list>
 #include <memory>
-#include "sensor.hpp"
+#include <thread>
 #include "configuration.hpp"
+#include "serialSensor.hpp"
+#include "externalSensor.hpp"
 
 class Manager {
     private:
         std::list<std::unique_ptr<Sensor>> sensors;
+        std::list<std::jthread> sensor_threads;
         Configuration configuration;
     public:
         Manager();
-
-        
 
         /**
          * Creates sensor based on input data
         */
         void createSensor(std::string inputData);
 
-        /**
-         * Quasi-test function
-        */
-        void testManager();
 
+        void runSensors();
+
+        std::string getLastValuesOfAllSensors();
+
+        void stopSensors();
 };
 
 #endif

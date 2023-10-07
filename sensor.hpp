@@ -5,14 +5,17 @@
 #include <queue>
 #include <thread>
 #include <memory>
+#include <mutex>
+#include <condition_variable>
 #include "data.hpp"
 
 class Sensor {
     private:
         std::string name;
         std::queue<std::shared_ptr<Data>> dataBuffer;
-
-
+        std::condition_variable dataCondition;
+        std::mutex dataMutex;
+        bool stopFlag = false;
     public:
 
         Sensor() = default;
@@ -27,7 +30,11 @@ class Sensor {
 
         std::shared_ptr<Data> getLastData();
 
-        ~Sensor() noexcept = default;
+        virtual ~Sensor() = default;
+
+        inline void stop() {this->stopFlag = true;}
+
+        inline bool getStopFlag() {return this->stopFlag;}
 
 };
 

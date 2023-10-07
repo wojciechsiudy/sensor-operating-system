@@ -17,6 +17,8 @@ add_executable(sensor-operating-system
             data.cpp
             serialSensor.cpp
             configuration.cpp
+            externalSensor.cpp
+            textData.cpp
             )
 
 include(FetchContent)

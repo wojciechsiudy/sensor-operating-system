@@ -1,10 +1,11 @@
 #include "manager.hpp"
 #include "serialSensor.hpp"
 
+
 Manager::Manager() {
     this->configuration.load("../sos_config.json");
     this->configuration.print();
-    std::exit(1);
+    this->sensors = this->configuration.createSensors();
 }
 
 
@@ -19,12 +20,24 @@ void Manager::createSensor(std::string inputData) {
 
 }
 
-void Manager::testManager() {
-    createSensor("serial");
-
+void Manager::runSensors() {
+    std::cout << "Sensors amount: " << this->sensors.size() << std::endl;
     for (auto& sensor : this->sensors) {
-        sensor->testRun();
+        this->sensor_threads.emplace_back(&Sensor::testRun, sensor.get());
     }
-    
 }
 
+std::string Manager::getLastValuesOfAllSensors(){
+    std::string lastValues;
+    for (auto& sensor : this->sensors) {
+        lastValues.append(sensor.get()->getLastData().get()->toString());
+        lastValues.append(",");
+    }
+    return lastValues;
+}
+
+void Manager::stopSensors() {
+    for (auto& sensor : this->sensors) {
+        sensor.get()->stop();
+    }
+}

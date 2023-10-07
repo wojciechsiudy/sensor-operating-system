@@ -1,0 +1,34 @@
+{
+    "name": "pbl",
+    "version": "1.0.0",
+    "author": "WS",
+    "sensors":
+        [
+            {
+                "name": "calculator",
+                "type": "external",
+                "command": "python3 ~/studia/inzynier/sensor-operating-system/pySensor.py"
+            },
+            {
+                "name": "another_calculator",
+                "type": "external",
+                "command": "~/studia/inzynier/sensor-operating-system/cppNode.out"
+            },
+            {
+                "name": "counter",
+                "type": "serial",
+                "parser": "",
+                "path": "/dev/ttyUSB0",
+                "baudrate": 115200,
+                "timeout": 10000,
+                "file_timeout": 10
+            },
+            {
+                "name": "termometer",
+                "type": "network",
+                "protocol": "tcp",
+                "ip": "192.168.100.3",
+                "port": 5000
+            }
+        ]
+}

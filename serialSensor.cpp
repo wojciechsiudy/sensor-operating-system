@@ -17,6 +17,9 @@ void SerialSensor::testRun() {
         this->serial.open();
     }
     while (true) {
+        if (this->getStopFlag()) {
+            break;
+        }
         reciveLine();
         try {
             std::cout << this->getLastData().get()->toString() << std::endl;
