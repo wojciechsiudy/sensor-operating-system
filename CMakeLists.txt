@@ -16,6 +16,7 @@ add_executable(sensor-operating-system
             sensor.cpp
             data.cpp
             serialSensor.cpp
+            configuration.cpp
             )
 
 include(FetchContent)
@@ -26,10 +27,19 @@ FetchContent_Declare(
 )
 FetchContent_makeavailable(serial)
 
+FetchContent_Declare(
+  json
+  GIT_REPOSITORY https://github.com/nlohmann/json.git
+  GIT_TAG bc889afb4c5bf1c0d8ee29ef35eaaf4c8bef8a5d
+)
+FetchContent_makeavailable(json)
+
+
 target_link_libraries(sensor-operating-system
   serial)
 
-include_directories(/home/wojtek/studia/inzynier/sensor-operating-system/build/_deps/serial-src/include)
+include_directories(/home/wojtek/studia/inzynier/sensor-operating-system/build/_deps/serial-src/include
+  /home/wojtek/studia/inzynier/sensor-operating-system/build/_deps/json-src/include)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

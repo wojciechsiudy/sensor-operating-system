@@ -5,14 +5,16 @@
 #include <list>
 #include <memory>
 #include "sensor.hpp"
-
+#include "configuration.hpp"
 
 class Manager {
     private:
-        std::list<std::shared_ptr<Sensor>> sensors;
-
+        std::list<std::unique_ptr<Sensor>> sensors;
+        Configuration configuration;
     public:
         Manager();
+
+        
 
         /**
          * Creates sensor based on input data
