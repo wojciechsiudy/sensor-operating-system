@@ -22,7 +22,7 @@ void SerialSensor::testRun() {
         }
         reciveLine();
         try {
-            std::cout << this->getLastData().get()->toString() << std::endl;
+            std::cout << this->getAndPopNextData().get()->toString() << std::endl;
         }
         catch (EmptyBuffer &e) {
             std::cout << e.what() << std::endl;

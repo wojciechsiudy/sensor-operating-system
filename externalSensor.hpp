@@ -40,11 +40,12 @@ class ExternalSensor : public Sensor {
 
     void run(){
         std::cout << "External sensor test run" << std::endl;
+        int internalCounter = 0;
         while(true){
             if (this->getStopFlag()) {
                 break;
             }
-            this->pushData(std::make_shared<TextData>("bleble"));
+            this->pushData(std::make_shared<TextData>("bleble" + std::to_string(internalCounter++)));
         }
     }
 

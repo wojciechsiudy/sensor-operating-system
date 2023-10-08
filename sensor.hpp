@@ -28,7 +28,9 @@ class Sensor {
         
         void pushData(std::shared_ptr<Data> data);
 
-        std::shared_ptr<Data> getLastData();
+        std::shared_ptr<Data> getAndPopNextData();
+
+        std::weak_ptr<Data> getLatestData();
 
         virtual ~Sensor() = default;
 

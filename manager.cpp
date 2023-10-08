@@ -30,7 +30,7 @@ void Manager::runSensors() {
 std::string Manager::getLastValuesOfAllSensors(){
     std::string lastValues;
     for (auto& sensor : this->sensors) {
-        lastValues.append(sensor.get()->getLastData().get()->toString());
+        lastValues.append(sensor.get()->getLatestData().lock()->toString());
         lastValues.append(",");
     }
     return lastValues;

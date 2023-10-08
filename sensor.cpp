@@ -5,7 +5,7 @@ Sensor::Sensor(std::string name)
     this->name = name;
 }
 
-std::shared_ptr<Data> Sensor::getLastData()
+std::shared_ptr<Data> Sensor::getAndPopNextData()
 {
     std::unique_lock<std::mutex> lock(this->dataMutex);
     if (this->dataBuffer.empty())
@@ -15,6 +15,16 @@ std::shared_ptr<Data> Sensor::getLastData()
     auto tmp = this->dataBuffer.front();
     this->dataBuffer.pop();
     return tmp;
+}
+
+std::weak_ptr<Data> Sensor::getLatestData()
+{
+    std::unique_lock<std::mutex> lock(this->dataMutex);
+    if (this->dataBuffer.empty())
+    {
+        throw EmptyBuffer();
+    }
+    return this->dataBuffer.back();
 }
 
 #include <iostream>
