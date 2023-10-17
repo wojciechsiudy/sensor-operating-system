@@ -38,6 +38,10 @@ class Sensor {
 
         inline bool getStopFlag() {return this->stopFlag;}
 
+        inline bool hasData() {return !this->dataBuffer.empty();}
+
+        inline std::string getName() {return this->name;}
+
 };
 
 struct EmptyBuffer : public std::exception {

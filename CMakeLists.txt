@@ -37,8 +37,9 @@ FetchContent_Declare(
 FetchContent_makeavailable(json)
 
 
+
 target_link_libraries(sensor-operating-system
-  serial)
+                      serial)
 
 include_directories(/home/wojtek/studia/inzynier/sensor-operating-system/build/_deps/serial-src/include
   /home/wojtek/studia/inzynier/sensor-operating-system/build/_deps/json-src/include)

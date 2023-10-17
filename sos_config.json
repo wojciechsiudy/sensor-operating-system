@@ -5,9 +5,9 @@
     "sensors":
         [
             {
-                "name": "calculator",
+                "name": "pytest",
                 "type": "external",
-                "command": "python3 ~/studia/inzynier/sensor-operating-system/pySensor.py"
+                "command": "python3 /home/wojtek/studia/inzynier/sensor-operating-system/pySensor.py"
             }
         ]
 }

@@ -1,55 +1,36 @@
 #ifndef EXTERNALSENSOR_HPP
 #define EXTERNALSENSOR_HPP
 
-#ifdef _WIN32
-#error Nie będzie i koniec
-#endif
-
-
+#include <mqueue.h>
 #include "sensor.hpp"
 
-#include <cstdio>
-#include <iostream>
+#define CHECK(x) \
+    do { \
+        if (!(x)) { \
+            fprintf(stderr, "%s:%d: ", __func__, __LINE__); \
+            perror(#x); \
+            exit(-1); \
+        } \
+    } while (0) \
 
-#include <memory>
-#include <stdexcept>
-#include <string>
-#include <array>
-
-#include "textData.hpp"
-
-// std::string exec(const char* cmd) {
-//     std::array<char, 128> buffer;
-//     std::string result;
-//     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
-//     if (!pipe) {
-//         throw std::runtime_error("popen() failed!");
-//     }
-//     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-//         result += buffer.data();
-//     }
-//     return result;
-// }
+constexpr auto MAX_SIZE = 1024;
+constexpr auto MSG_STOP = "exit";
 
 class ExternalSensor : public Sensor {
-   private:
-    std::shared_ptr<FILE> pipe;
     std::string command;
-   public:
-    ExternalSensor(std::string name, std::string command) : Sensor(name), command(command) {}
+    mqd_t messageQueue;
+    struct mq_attr messageQueueAttributes;
+    char buffer[MAX_SIZE + 1];
 
-    void run(){
-        std::cout << "External sensor test run" << std::endl;
-        int internalCounter = 0;
-        while(true){
-            if (this->getStopFlag()) {
-                break;
-            }
-            this->pushData(std::make_shared<TextData>("bleble" + std::to_string(internalCounter++)));
-        }
-    }
+public:
+    ExternalSensor(std::string name, std::string command);
+
+    void run();
 
     virtual void testRun() override;
+
+private:
+    const char* createQueueName();
 };
 
 #endif

@@ -1,9 +1,10 @@
+#include <iostream>
 #include "manager.hpp"
 #include "serialSensor.hpp"
 
 
 Manager::Manager() {
-    this->configuration.load("../sos_config.json");
+    this->configuration.load("../sos_config.json"); //@todo: pass as command line argument
     this->configuration.print();
     this->sensors = this->configuration.createSensors();
 }
@@ -30,8 +31,11 @@ void Manager::runSensors() {
 std::string Manager::getLastValuesOfAllSensors(){
     std::string lastValues;
     for (auto& sensor : this->sensors) {
-        lastValues.append(sensor.get()->getLatestData().lock()->toString());
-        lastValues.append(",");
+        if(sensor.get()->hasData()) {
+            lastValues.append(sensor.get()->getLatestData().lock()->toString());
+            lastValues.append(",");
+        }
+        
     }
     return lastValues;
 }
