@@ -9,10 +9,12 @@ SerialSensor::SerialSensor(std::string name, std::string port, int baudrate, uin
 
 void SerialSensor::reciveLine() {
         auto line = this->serial.readline();
+        // drop the newline
+        line.erase(std::remove(line.begin(), line.end(), '\n'), line.cend());
         this->pushData(std::make_shared<SerialData>(line));
 }
 
-void SerialSensor::testRun() {
+void SerialSensor::run() {
     if (!this->serial.isOpen()) {
         this->serial.open();
     }
@@ -21,12 +23,6 @@ void SerialSensor::testRun() {
             break;
         }
         reciveLine();
-        try {
-            std::cout << this->getAndPopNextData().get()->toString() << std::endl;
-        }
-        catch (EmptyBuffer &e) {
-            std::cout << e.what() << std::endl;
-        }
     }
 }
 

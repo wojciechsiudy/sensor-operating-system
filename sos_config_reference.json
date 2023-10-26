@@ -2,17 +2,33 @@
     "name": "pbl",
     "version": "1.0.0",
     "author": "WS",
+    "mqtt_server": {
+        "address": "192.168.133.23",
+        "port": 5255,
+        "username": "root",
+        "password": "strong"
+    },
     "sensors":
         [
             {
                 "name": "calculator",
                 "type": "external",
-                "command": "python3 ~/studia/inzynier/sensor-operating-system/pySensor.py"
+                "command": "python3 ~/studia/inzynier/sensor-operating-system/pySensor.py",
+                "mqtt_settings" : {
+                    "topic": "calc",
+                    "delay": 5,
+                    "mode": "average"
+                }
             },
             {
                 "name": "another_calculator",
                 "type": "external",
-                "command": "~/studia/inzynier/sensor-operating-system/cppNode.out"
+                "command": "~/studia/inzynier/sensor-operating-system/cppNode.out",
+                "mqtt_settings" : {
+                    "topic": "calc",
+                    "delay": 5,
+                    "mode": "selective"
+                }
             },
             {
                 "name": "counter",

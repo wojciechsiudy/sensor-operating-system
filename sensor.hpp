@@ -9,13 +9,28 @@
 #include <condition_variable>
 #include "data.hpp"
 
+enum class mqqtDataMode {
+    average,
+    selective
+};
+
+struct mqqtSettings {
+    std::string topic;
+    int delay;
+    mqqtDataMode mode;
+};
+
 class Sensor {
     private:
         std::string name;
+
         std::queue<std::shared_ptr<Data>> dataBuffer;
-        std::condition_variable dataCondition;
         std::mutex dataMutex;
+
         bool stopFlag = false;
+
+        bool enableMqqtFlag = false;
+        mqqtSettings mqqt;
     public:
 
         Sensor() = default;
@@ -24,8 +39,8 @@ class Sensor {
 
         //virtual void initialize() = 0;
 
-        virtual void testRun() = 0;
-        
+        virtual void run() = 0;
+
         void pushData(std::shared_ptr<Data> data);
 
         std::shared_ptr<Data> getAndPopNextData();
@@ -42,6 +57,9 @@ class Sensor {
 
         inline std::string getName() {return this->name;}
 
+        inline bool isMqqtEnabled() {return this->enableMqqtFlag;}
+
+        void enableMqqt(mqqtSettings settings);
 };
 
 struct EmptyBuffer : public std::exception {

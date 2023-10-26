@@ -27,10 +27,13 @@ std::weak_ptr<Data> Sensor::getLatestData()
     return this->dataBuffer.back();
 }
 
-#include <iostream>
-
 void Sensor::pushData(std::shared_ptr<Data> data)
 {
     std::lock_guard<std::mutex> lock(this->dataMutex);
     this->dataBuffer.push(std::move(data));
+}
+
+void Sensor::enableMqqt(mqqtSettings settings) {
+    this->enableMqqtFlag = true;
+    this->mqqt = settings;
 }

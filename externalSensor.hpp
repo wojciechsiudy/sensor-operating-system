@@ -25,9 +25,8 @@ class ExternalSensor : public Sensor {
 public:
     ExternalSensor(std::string name, std::string command);
 
-    void run();
+    virtual void run() override;
 
-    virtual void testRun() override;
 
 private:
     const char* createQueueName();

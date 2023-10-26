@@ -4,7 +4,7 @@
 
 
 Manager::Manager() {
-    this->configuration.load("../sos_config.json"); //@todo: pass as command line argument
+    this->configuration.load("/home/wojtek/studia/inzynier/sensor-operating-system/sos_config.json"); //@todo: pass as command line argument
     this->configuration.print();
     this->sensors = this->configuration.createSensors();
 }
@@ -24,7 +24,7 @@ void Manager::createSensor(std::string inputData) {
 void Manager::runSensors() {
     std::cout << "Sensors amount: " << this->sensors.size() << std::endl;
     for (auto& sensor : this->sensors) {
-        this->sensor_threads.emplace_back(&Sensor::testRun, sensor.get());
+        this->sensor_threads.emplace_back(&Sensor::run, sensor.get());
     }
 }
 

@@ -14,7 +14,7 @@ class SerialSensor : public Sensor
 
     public:
         SerialSensor(std::string name, std::string port, int baudrate, uint32_t timeout = 1000);
-        virtual void testRun() override;
+        virtual void run() override;
 
 };
 
@@ -29,7 +29,7 @@ class SerialData : public Data
         SerialData(std::string data);
 
         std::string toString() override;
-        
+
 };
 
 #endif
