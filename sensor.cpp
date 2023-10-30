@@ -37,3 +37,8 @@ void Sensor::enableMqqt(mqqtSettings settings) {
     this->enableMqqtFlag = true;
     this->mqqt = settings;
 }
+
+void Sensor::enableFileTimeout(int timeout) {
+    this->enableFileTimeoutFlag = true;
+    this->fileTimeout = timeout;
+}

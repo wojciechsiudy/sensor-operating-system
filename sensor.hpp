@@ -31,6 +31,9 @@ class Sensor {
 
         bool enableMqqtFlag = false;
         mqqtSettings mqqt;
+
+        bool enableFileTimeoutFlag = false;
+        int fileTimeout;
     public:
 
         Sensor() = default;
@@ -60,6 +63,8 @@ class Sensor {
         inline bool isMqqtEnabled() {return this->enableMqqtFlag;}
 
         void enableMqqt(mqqtSettings settings);
+
+        void enableFileTimeout(int timeout);
 };
 
 struct EmptyBuffer : public std::exception {

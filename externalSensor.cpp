@@ -31,6 +31,7 @@ const char* ExternalSensor::createQueueName() {
 void ExternalSensor::run() {
 
     std::jthread commandThread([this](){system(this->command.c_str());});
+    //FILE* subprocess = popen(this->command.c_str(), "r");
 
     while(! this->getStopFlag()) {
         ssize_t bytesRead;
@@ -43,8 +44,11 @@ void ExternalSensor::run() {
 
         this->buffer[bytesRead] = '\0';
         this->pushData(std::make_shared<TextData>(buffer));
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+
     }
+    std::cout << "requesting ext command stop" << std::endl;
+
+    commandThread.detach(); //will be killed once the whole applcation stops
 
     mq_close(this->messageQueue);
     mq_unlink(createQueueName());

@@ -17,12 +17,6 @@ class Manager {
     public:
         Manager();
 
-        /**
-         * Creates sensor based on input data
-        */
-        void createSensor(std::string inputData);
-
-
         void runSensors();
 
         std::string getLastValuesOfAllSensors();

@@ -18,10 +18,10 @@ void SerialSensor::run() {
     if (!this->serial.isOpen()) {
         this->serial.open();
     }
-    while (true) {
-        if (this->getStopFlag()) {
-            break;
-        }
+    if (!this->serial.available()) {
+        throw std::runtime_error("Serial port {} is unavaliable"); //fixme
+    }
+    while (! this->getStopFlag()) {
         reciveLine();
     }
 }

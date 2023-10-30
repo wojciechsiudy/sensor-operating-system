@@ -69,7 +69,7 @@ std::unique_ptr<Sensor> Configuration::createSensorFromJson(json json) {
         );
     }
     else if (type == "network"){
-        //todo
+        throw std::runtime_error("Network sensor in not implemented!");
     }
     else {
         throw std::runtime_error("Invalid sensor type in config file");
@@ -79,12 +79,16 @@ std::unique_ptr<Sensor> Configuration::createSensorFromJson(json json) {
         sensor.get()->enableMqqt(parseMqqtSettings(json["mqqt_settings"]));
     }
 
+    if(json.contains("file_timeout")) {
+        sensor.get()->enableFileTimeout(json["file_timeout"]);
+    }
+
     return sensor;
 }
 
 std::list<std::unique_ptr<Sensor>> Configuration::createSensors() {
     std::list<std::unique_ptr<Sensor>> result;
-    
+
     if (this->sensors.size() == 0) {
         std::cout << "No sensors defined" << std::endl;
         std::exit(1);

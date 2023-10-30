@@ -10,16 +10,6 @@ Manager::Manager() {
 }
 
 
-void Manager::createSensor(std::string inputData) {
-    //assuming intput data as a type (at the beginning)
-    if (inputData == "serial") {
-        this->sensors.emplace_back(std::make_unique<SerialSensor>("licznik", "/dev/ttyUSB0", 115200, 1000));
-    }
-    else if (inputData == "cpp") {
-
-    }
-
-}
 
 void Manager::runSensors() {
     std::cout << "Sensors amount: " << this->sensors.size() << std::endl;
@@ -35,7 +25,7 @@ std::string Manager::getLastValuesOfAllSensors(){
             lastValues.append(sensor.get()->getLatestData().lock()->toString());
             lastValues.append(",");
         }
-        
+
     }
     return lastValues;
 }
