@@ -9,7 +9,9 @@ class Data {
         std::chrono::time_point<std::chrono::system_clock> timestamp;
     public:
         Data();
+
         virtual std::string toString();
+
         virtual ~Data() noexcept = default;
 };
 

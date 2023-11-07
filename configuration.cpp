@@ -5,10 +5,12 @@
 #include "configuration.hpp"
 #include "externalSensor.hpp"
 #include "serialSensor.hpp"
+#include "utils.hpp"
 
 using json = nlohmann::json;
 
 void Configuration::load(const std::string& filename) {
+    this->createTime = std::chrono::system_clock::now();
 
     try {
         if (!std::filesystem::exists(filename)) {
@@ -31,17 +33,13 @@ void Configuration::load(const std::string& filename) {
         std::cout << "Error while loading configuration file: " << e.what() << std::endl;
         std::exit(1);
     }
-
-
-
-
 }
 
 void Configuration::print() {
     std::cout << "Name: " << this->name << std::endl;
     std::cout << "Version: " << this->version << std::endl;
     std::cout << "Author: " << this->author << std::endl;
-
+    std::cout << "Created at: " << makeHumanReadableTime(this->createTime) << std::endl;
 }
 
 

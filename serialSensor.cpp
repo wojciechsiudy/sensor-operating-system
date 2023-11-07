@@ -15,12 +15,14 @@ void SerialSensor::reciveLine() {
 }
 
 void SerialSensor::run() {
-    if (!this->serial.isOpen()) {
-        this->serial.open();
+    try {
+        if (!this->serial.isOpen()) this->serial.open();
     }
-    if (!this->serial.available()) {
-        throw std::runtime_error("Serial port {} is unavaliable"); //fixme
+    catch (serial::IOException e) {
+        std::string errorMessage = "Serial port " + this->serial.getPort() + " is unavaliable";
+        throw std::runtime_error(errorMessage);
     }
+
     while (! this->getStopFlag()) {
         reciveLine();
     }

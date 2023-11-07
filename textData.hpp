@@ -9,5 +9,5 @@ class TextData : public Data
         TextData(std::string data);
 
         std::string toString() override;
-        
+
 };

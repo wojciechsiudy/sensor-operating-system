@@ -5,6 +5,7 @@
 #include <memory>
 #include <map>
 #include <list>
+#include <chrono>
 #include <nlohmann/json.hpp>
 #include "sensor.hpp"
 
@@ -23,12 +24,13 @@ class Configuration {
     std::string author;
     json sensors = json::array();
 
+    std::chrono::time_point<std::chrono::system_clock> createTime;
+
     bool mqqtSupport = false;
     mqqtServerData mqqt;
 public:
     void load(const std::string& filename);
     void save(const std::string& filename);
-    //void set(const std::string& key, const std::string& value);
     void print();
     std::list<std::unique_ptr<Sensor>> createSensors();
 private:
