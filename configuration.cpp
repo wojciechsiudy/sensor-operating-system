@@ -43,23 +43,23 @@ void Configuration::print() {
 }
 
 
-std::unique_ptr<Sensor> Configuration::createSensorFromJson(json json) {
+std::shared_ptr<Sensor> Configuration::createSensorFromJson(json json) {
     if (json.is_null()) {
         std::cout << "Sensor is null" << std::endl;
         return nullptr;
     }
 
-    std::unique_ptr<Sensor> sensor;
+    std::shared_ptr<Sensor> sensor;
 
     auto type = json["type"];
     if (type == "external") {
-        sensor = std::make_unique<ExternalSensor>(
+        sensor = std::make_shared<ExternalSensor>(
             json["name"],
             json["command"]
         );
     }
     else if (type == "serial") {
-        sensor = std::make_unique<SerialSensor>(
+        sensor = std::make_shared<SerialSensor>(
             json["name"],
             json["path"],
             json["baudrate"],
@@ -84,8 +84,8 @@ std::unique_ptr<Sensor> Configuration::createSensorFromJson(json json) {
     return sensor;
 }
 
-std::list<std::unique_ptr<Sensor>> Configuration::createSensors() {
-    std::list<std::unique_ptr<Sensor>> result;
+std::list<std::shared_ptr<Sensor>> Configuration::createSensors() {
+    std::list<std::shared_ptr<Sensor>> result;
 
     if (this->sensors.size() == 0) {
         std::cout << "No sensors defined" << std::endl;

@@ -32,9 +32,9 @@ public:
     void load(const std::string& filename);
     void save(const std::string& filename);
     void print();
-    std::list<std::unique_ptr<Sensor>> createSensors();
+    std::list<std::shared_ptr<Sensor>> createSensors();
 private:
-    std::unique_ptr<Sensor> createSensorFromJson(json json);
+    std::shared_ptr<Sensor> createSensorFromJson(json json);
     mqqtSettings parseMqqtSettings(json input);
 };
 
