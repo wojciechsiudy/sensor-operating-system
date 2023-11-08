@@ -24,10 +24,20 @@
                 "name": "counter",
                 "type": "serial",
                 "parser": "",
+                "path": "/dev/ttyUSB1",
+                "baudrate": 115200,
+                "timeout": 10000,
+                "file_timeout": 10
+            },
+            {
+                "name": "gps",
+                "type": "serial",
+                "parser": "",
                 "path": "/dev/ttyUSB0",
                 "baudrate": 115200,
                 "timeout": 10000,
                 "file_timeout": 10
+
             }
         ]
 }

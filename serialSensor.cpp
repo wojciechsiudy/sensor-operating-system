@@ -1,4 +1,5 @@
 #include <iostream>
+#include <regex>
 #include "serialSensor.hpp"
 
 SerialSensor::SerialSensor(std::string name, std::string port, int baudrate, uint32_t timeout) : Sensor(name) {
@@ -11,6 +12,13 @@ void SerialSensor::reciveLine() {
         auto line = this->serial.readline();
         // drop the newline
         line.erase(std::remove(line.begin(), line.end(), '\n'), line.cend());
+
+        if (this->isRegexFilterEnabled()) {
+            std::regex regex(this->getRegexFilter());
+            if (!std::regex_match(line, regex)) {
+                return;
+            }
+        }
         this->pushData(std::make_shared<SerialData>(line));
 }
 
@@ -36,4 +44,3 @@ std::string SerialData::toString() {
     auto baseString = Data::toString();
     return baseString + this->line;
 }
-

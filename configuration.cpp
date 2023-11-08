@@ -65,6 +65,10 @@ std::shared_ptr<Sensor> Configuration::createSensorFromJson(json json) {
             json["baudrate"],
             json["timeout"]
         );
+
+        if (json.contains("regex_filter")) {
+            sensor.get()->enableRegexFilter(json["regex_filter"]);
+        }
     }
     else if (type == "network"){
         throw std::runtime_error("Network sensor in not implemented!");

@@ -35,6 +35,9 @@ class Sensor {
 
         bool enableFileTimeoutFlag = false;
         int fileTimeout = 300; /*seconds*/
+
+        bool enableRegexFilterFlag = false;
+        std::string regexFilter;
     public:
 
         Sensor() = default;
@@ -68,6 +71,12 @@ class Sensor {
         void enableFileTimeout(int timeout);
 
         std::chrono::duration<int> getFileTimeout();
+
+        void enableRegexFilter(std::string regex);
+
+        inline bool isRegexFilterEnabled() {return this->enableRegexFilterFlag;}
+
+        inline std::string getRegexFilter() {return this->regexFilter;}
 };
 
 struct EmptyBuffer : public std::exception {
