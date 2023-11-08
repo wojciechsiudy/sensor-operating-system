@@ -42,3 +42,7 @@ void Sensor::enableFileTimeout(int timeout) {
     this->enableFileTimeoutFlag = true;
     this->fileTimeout = timeout;
 }
+
+std::chrono::duration<int> Sensor::getFileTimeout() {
+    return std::chrono::duration<int>(this->fileTimeout);
+}

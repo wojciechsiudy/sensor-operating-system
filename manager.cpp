@@ -6,7 +6,9 @@
 Manager::Manager() {
     this->configuration.load("/home/wojtek/studia/inzynier/sensor-operating-system/sos_config.json"); //@todo: pass as command line argument
     this->configuration.print();
+
     this->sensors = this->configuration.createSensors();
+    this->createSerializers();
 }
 
 
@@ -33,5 +35,11 @@ std::string Manager::getLastValuesOfAllSensors(){
 void Manager::stopSensors() {
     for (auto& sensor : this->sensors) {
         sensor.get()->stop();
+    }
+}
+
+void Manager::createSerializers() {
+    for (auto& sensor : sensors) {
+        serializers.emplace_back(std::make_shared<Serializer>(sensor));
     }
 }

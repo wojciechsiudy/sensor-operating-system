@@ -5,6 +5,7 @@
 #include <queue>
 #include <thread>
 #include <memory>
+#include <chrono>
 #include <mutex>
 #include <condition_variable>
 #include "data.hpp"
@@ -33,7 +34,7 @@ class Sensor {
         mqqtSettings mqqt;
 
         bool enableFileTimeoutFlag = false;
-        int fileTimeout;
+        int fileTimeout = 300; /*seconds*/
     public:
 
         Sensor() = default;
@@ -65,6 +66,8 @@ class Sensor {
         void enableMqqt(mqqtSettings settings);
 
         void enableFileTimeout(int timeout);
+
+        std::chrono::duration<int> getFileTimeout();
 };
 
 struct EmptyBuffer : public std::exception {

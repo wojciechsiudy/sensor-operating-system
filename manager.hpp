@@ -8,12 +8,16 @@
 #include "configuration.hpp"
 #include "serialSensor.hpp"
 #include "externalSensor.hpp"
+#include "serializer.hpp"
 
 class Manager {
     private:
         std::list<std::shared_ptr<Sensor>> sensors;
         std::list<std::jthread> sensor_threads;
+
         Configuration configuration;
+
+        std::list<std::shared_ptr<Serializer>> serializers;
     public:
         Manager();
 
@@ -22,6 +26,9 @@ class Manager {
         std::string getLastValuesOfAllSensors();
 
         void stopSensors();
+
+    private:
+        void createSerializers();
 };
 
 #endif
