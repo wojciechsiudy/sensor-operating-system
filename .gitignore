@@ -12,3 +12,6 @@ _deps
 build
 .vscode
 output
+.venv
+__pycache__
+db.sqlite3
