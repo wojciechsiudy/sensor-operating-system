@@ -6,10 +6,11 @@
 #include <fstream>
 #include "sensor.hpp"
 
-
+const std::string outputDirectoryName = "output";
+const int milisecondsAtferBufferUnderflow = 1000;
 
 class Serializer {
-    std::string baseFileName;
+    std::string baseFilePath;
     std::chrono::time_point<std::chrono::system_clock> fileCreationTime;
     int fileCounter = 0;
     std::weak_ptr<Sensor> sensorReference;

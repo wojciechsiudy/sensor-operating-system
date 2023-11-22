@@ -4,10 +4,10 @@
 
 
 Manager::Manager() {
-    this->configuration.load("/home/wojtek/studia/inzynier/sensor-operating-system/sos_config.json"); //@todo: pass as command line argument
-    this->configuration.print();
+    Configuration::getConfiguration()->load("/home/wojtek/studia/inzynier/sensor-operating-system/sos_config.json"); //@todo: pass as command line argument
+    Configuration::getConfiguration()->print();
 
-    this->sensors = this->configuration.createSensors();
+    this->sensors = Configuration::getConfiguration()->createSensors();
     this->createSerializers();
 }
 

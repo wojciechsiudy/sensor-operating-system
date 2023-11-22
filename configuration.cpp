@@ -9,6 +9,18 @@
 
 using json = nlohmann::json;
 
+Configuration* Configuration::instance{};
+std::mutex Configuration::mutex;
+
+Configuration* Configuration::getConfiguration() {
+    std::lock_guard<std::mutex> lock(mutex);
+    if(instance == nullptr) {
+        instance = new Configuration();
+    }
+    return instance;
+}
+
+
 void Configuration::load(const std::string& filename) {
     this->createTime = std::chrono::system_clock::now();
 

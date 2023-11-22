@@ -14,13 +14,12 @@ enum class LogLevel {
 
 
 class Logger {
-private:
     static Logger* instance;
     static std::mutex mutex;
     LogLevel logLevel;
 protected:
-    Logger() {}
-    ~Logger();
+    Logger() {};
+    ~Logger() {};
 public:
     void operator=(const Logger&) = delete;
 
@@ -28,8 +27,5 @@ public:
 
     void write(std::string message);
 };
-
-Logger* Logger::instance{};
-std::mutex Logger::mutex;
 
 #endif

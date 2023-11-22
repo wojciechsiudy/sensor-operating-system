@@ -8,14 +8,18 @@ Serializer::Serializer(std::shared_ptr<Sensor>& sensor) {
         throw std::runtime_error("Sensor expired!");
     }
 
-    this->baseFileName =
+    if (!std::filesystem::exists(outputDirectoryName)) {
+        std::filesystem::create_directory(outputDirectoryName);
+    }
+
+    this->baseFilePath =
         this->sensorReference.lock().get()->getName();
 
     this->serializationThread = std::jthread(&Serializer::manageWriting, this);
 }
 
 std::string Serializer::makeFileName() {
-    std::string result = this->baseFileName;
+    std::string result = this->baseFilePath;
     result.append("-");
     result.append(std::to_string(this->fileCounter));
     return result;
@@ -35,7 +39,8 @@ void Serializer::manageWriting() {
                 << std::endl;
         }
         catch (EmptyBuffer) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            std::this_thread::sleep_for(
+                std::chrono::milliseconds(milisecondsAtferBufferUnderflow));
         }
     }
 

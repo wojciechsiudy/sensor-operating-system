@@ -1,4 +1,5 @@
 #include "sensor.hpp"
+#include "logger.hpp"
 
 Sensor::Sensor(std::string name)
 {

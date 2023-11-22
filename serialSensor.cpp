@@ -10,12 +10,12 @@ SerialSensor::SerialSensor(std::string name, std::string port, int baudrate, uin
 
 void SerialSensor::reciveLine() {
         auto line = this->serial.readline();
-        // drop the newline
+        if (line.empty()) return;
         line.erase(std::remove(line.begin(), line.end(), '\n'), line.cend());
 
         if (this->isRegexFilterEnabled()) {
             std::regex regex(this->getRegexFilter());
-            if (!std::regex_match(line, regex)) {
+            if (!std::regex_search(line, regex)) {
                 return;
             }
         }

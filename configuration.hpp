@@ -19,6 +19,9 @@ struct mqqtServerData {
 };
 
 class Configuration {
+    static Configuration* instance;
+    static std::mutex mutex;
+
     std::string name;
     std::string version;
     std::string author;
@@ -28,7 +31,11 @@ class Configuration {
 
     bool mqqtSupport = false;
     mqqtServerData mqqt;
+protected:
+    Configuration() {};
+    ~Configuration() {};
 public:
+    static Configuration *getConfiguration();
     void load(const std::string& filename);
     void save(const std::string& filename);
     void print();

@@ -15,8 +15,6 @@ class Manager {
         std::list<std::shared_ptr<Sensor>> sensors;
         std::list<std::jthread> sensor_threads;
 
-        Configuration configuration;
-
         std::list<std::shared_ptr<Serializer>> serializers;
     public:
         Manager();
