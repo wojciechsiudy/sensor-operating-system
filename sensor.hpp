@@ -70,7 +70,7 @@ class Sensor {
 
         void enableFileTimeout(int timeout);
 
-        std::chrono::duration<int> getFileTimeout();
+        std::chrono::seconds getFileTimeout();
 
         void enableRegexFilter(std::string regex);
 

@@ -44,8 +44,8 @@ void Sensor::enableFileTimeout(int timeout) {
     this->fileTimeout = timeout;
 }
 
-std::chrono::duration<int> Sensor::getFileTimeout() {
-    return std::chrono::duration<int>(this->fileTimeout);
+std::chrono::seconds Sensor::getFileTimeout() {
+    return std::chrono::seconds(this->fileTimeout);
 }
 
 void Sensor::enableRegexFilter(std::string regex) {

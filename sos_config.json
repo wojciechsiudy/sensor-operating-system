@@ -16,7 +16,7 @@
                 "command": "python3 /home/wojtek/studia/inzynier/sensor-operating-system/pySensor.py",
                 "mqtt_settings" : {
                     "topic" : "calc",
-                    "delay" : 5,
+                    "delay" : 2,
                     "mode" : "average"
                 }
             },
@@ -24,20 +24,20 @@
                 "name": "counter",
                 "type": "serial",
                 "parser": "",
-                "path": "/dev/ttyUSB1",
+                "path": "/dev/ttyUSB2",
                 "baudrate": 115200,
                 "timeout": 10000,
-                "file_timeout": 10
+                "file_timeout": 2
             },
             {
                 "name": "gps",
                 "type": "serial",
                 "parser": "",
-                "path": "/dev/ttyUSB0",
+                "path": "/dev/ttyUSB1",
                 "baudrate": 115200,
                 "timeout": 10000,
                 "file_timeout": 10,
-                "regex_fiter": "GPGGA"
+                "regex_filter": "GPGGA|GPGSV"
             }
         ]
 }

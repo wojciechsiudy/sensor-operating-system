@@ -39,6 +39,7 @@ public:
     void load(const std::string& filename);
     void save(const std::string& filename);
     void print();
+    std::string getStartTimeString();
     std::list<std::shared_ptr<Sensor>> createSensors();
 private:
     std::shared_ptr<Sensor> createSensorFromJson(json json);

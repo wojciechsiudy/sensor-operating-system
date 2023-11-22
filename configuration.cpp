@@ -132,3 +132,7 @@ mqqtSettings Configuration::parseMqqtSettings(json input) {
         dataMode
     };
 }
+
+std::string Configuration::getStartTimeString() {
+    return makeFilenameWritableTime(this->createTime);
+}

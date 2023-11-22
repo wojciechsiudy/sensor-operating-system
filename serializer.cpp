@@ -1,5 +1,6 @@
 #include <filesystem>
 #include "serializer.hpp"
+#include "configuration.hpp"
 
 Serializer::Serializer(std::shared_ptr<Sensor>& sensor) {
     this->sensorReference = sensor;
@@ -8,18 +9,19 @@ Serializer::Serializer(std::shared_ptr<Sensor>& sensor) {
         throw std::runtime_error("Sensor expired!");
     }
 
-    if (!std::filesystem::exists(outputDirectoryName)) {
-        std::filesystem::create_directory(outputDirectoryName);
-    }
+    std::string currentRunDirectoryName = outputDirectoryName + "/" +
+        Configuration::getConfiguration()->getStartTimeString();
 
-    this->baseFilePath =
-        this->sensorReference.lock().get()->getName();
+    this->baseFilePath.append(currentRunDirectoryName + "/");
+
+    std::filesystem::create_directories(this->baseFilePath);
 
     this->serializationThread = std::jthread(&Serializer::manageWriting, this);
 }
 
 std::string Serializer::makeFileName() {
     std::string result = this->baseFilePath;
+    result.append(this->sensorReference.lock().get()->getName());
     result.append("-");
     result.append(std::to_string(this->fileCounter));
     return result;
@@ -27,7 +29,7 @@ std::string Serializer::makeFileName() {
 
 void Serializer::manageWriting() {
     auto fileTimeout = this->sensorReference.lock().get()->getFileTimeout();
-    auto timeElapsed = std::chrono::duration<int>(0);
+    auto timeElapsed = std::chrono::seconds(0);
     auto timeStart = std::chrono::steady_clock::now();
 
     this->file.open(makeFileName());
@@ -37,6 +39,15 @@ void Serializer::manageWriting() {
             this->file <<
                 this->sensorReference.lock().get()->getAndPopNextData()->toString()
                 << std::endl;
+
+            timeElapsed = std::chrono::duration_cast<std::chrono::seconds>(
+                std::chrono::steady_clock::now() - timeStart);
+            if (timeElapsed > fileTimeout) {
+                this->file.close();
+                this->fileCounter++;
+                this->file.open(makeFileName());
+                timeStart = std::chrono::steady_clock::now();
+            }
         }
         catch (EmptyBuffer) {
             std::this_thread::sleep_for(
