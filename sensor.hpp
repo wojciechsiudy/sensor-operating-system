@@ -38,13 +38,14 @@ class Sensor {
 
         bool enableRegexFilterFlag = false;
         std::string regexFilter;
+
+        bool enableParserFlag = false;
+        std::string parserPath;
     public:
 
         Sensor() = default;
 
         Sensor(std::string name);
-
-        //virtual void initialize() = 0;
 
         virtual void run() = 0;
 
@@ -77,6 +78,12 @@ class Sensor {
         inline bool isRegexFilterEnabled() {return this->enableRegexFilterFlag;}
 
         inline std::string getRegexFilter() {return this->regexFilter;}
+
+        void enableParser(std::string path);
+
+        inline bool isParserEnabled() {return this->enableParserFlag;}
+
+        inline std::string getParserPath() {return this->parserPath;}
 };
 
 struct EmptyBuffer : public std::exception {

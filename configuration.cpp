@@ -97,6 +97,10 @@ std::shared_ptr<Sensor> Configuration::createSensorFromJson(json json) {
         sensor.get()->enableFileTimeout(json["file_timeout"]);
     }
 
+    if(json.contains("parser")) {
+        sensor.get()->enableParser(json["parser"]);
+    }
+
     return sensor;
 }
 

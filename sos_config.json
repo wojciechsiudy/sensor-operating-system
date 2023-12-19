@@ -1,43 +1,14 @@
 {
-    "name": "pbl",
+    "name": "example_configuration",
     "version": "1.0.0",
     "author": "WS",
-    "mqtt_server": {
-        "address": "192.168.133.23",
-        "port": 5255,
-        "username": "root",
-        "password": "strong"
-    },
     "sensors":
         [
             {
                 "name": "pytest",
                 "type": "external",
-                "command": "python3 /home/wojtek/studia/inzynier/sensor-operating-system/pySensor.py",
-                "mqtt_settings" : {
-                    "topic" : "calc",
-                    "delay" : 2,
-                    "mode" : "average"
-                }
-            },
-            {
-                "name": "counter",
-                "type": "serial",
-                "parser": "",
-                "path": "/dev/ttyUSB2",
-                "baudrate": 115200,
-                "timeout": 10000,
-                "file_timeout": 2
-            },
-            {
-                "name": "gps",
-                "type": "serial",
-                "parser": "",
-                "path": "/dev/ttyUSB1",
-                "baudrate": 115200,
-                "timeout": 10000,
-                "file_timeout": 10,
-                "regex_filter": "GPGGA|GPGSV"
+                "command": "python3 ./ExamplePySensor.py",
+                "file_timeout": 10
             }
         ]
 }
