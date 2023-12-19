@@ -2,7 +2,6 @@
 #define PARSER_PLUGIN_PARSER_HPP
 
 #include "serialSensor.hpp"
-#include "streamProcessorResources.hpp"
 
 typedef void (*parserFunctionHandle)();
 

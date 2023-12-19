@@ -7,7 +7,7 @@
             {
                 "name": "pytest",
                 "type": "external",
-                "command": "python3 ./ExamplePySensor.py",
+                "command": "/usr/bin/python3 ./ExamplePySensor.py",
                 "file_timeout": 10
             }
         ]
