@@ -5,5 +5,5 @@ Data::Data() {
 }
 
 std::string Data::toString() {
-    return (std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(this->timestamp.time_since_epoch()).count()) + "|");
+    return (std::to_string(std::chrono::duration_cast<std::chrono::microseconds>(this->timestamp.time_since_epoch()).count()) + "|");
 }
