@@ -7,6 +7,7 @@
 #include <memory>
 #include <chrono>
 #include <mutex>
+#include <atomic>
 #include <condition_variable>
 #include "data.hpp"
 
@@ -28,7 +29,7 @@ class Sensor {
         std::queue<std::shared_ptr<Data>> dataBuffer;
         std::mutex dataMutex;
 
-        bool stopFlag = false;
+        std::atomic<bool> stopFlag = false;
 
         bool enableMqqtFlag = false;
         mqqtSettings mqqt;
@@ -79,17 +80,7 @@ class Sensor {
 
         inline std::string getRegexFilter() {return this->regexFilter;}
 
-        void enableParser(std::string path);
-
-        inline bool isParserEnabled() {return this->enableParserFlag;}
-
         inline std::string getParserPath() {return this->parserPath;}
-};
-
-struct EmptyBuffer : public std::exception {
-   const char * what () const throw () {
-      return "Buffer is empty";
-   }
 };
 
 #endif

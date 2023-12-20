@@ -18,3 +18,4 @@ _deps
 db.sqlite3
 *.out
 *.so
+trash

@@ -4,12 +4,13 @@
 #include "serialSensor.hpp"
 
 int main(int argc, char* argv[]) {
-    //clearOutput();
+    clearOutput();
     std::cout << "Loading configuration..." << std::endl;
     Manager manager = Manager();
     manager.runSensors();
     std::cout << "Sensors running" << std::endl;
     std::this_thread::sleep_for(std::chrono::seconds(10));
     manager.stopSensors();
+    std::cout << "Exiting..." << std::endl;
     return 0;
 }

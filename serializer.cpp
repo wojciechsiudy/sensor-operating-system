@@ -1,6 +1,7 @@
 #include <filesystem>
 #include "serializer.hpp"
 #include "configuration.hpp"
+#include "utils.hpp"
 
 Serializer::Serializer(std::shared_ptr<Sensor>& sensor) {
     this->sensorReference = sensor;

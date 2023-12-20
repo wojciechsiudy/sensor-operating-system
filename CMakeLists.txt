@@ -22,8 +22,8 @@ add_executable(sensor-operating-system
             logger.cpp
             serializer.cpp
             utils.cpp
-            parserPluginHandler.cpp
-            parserInterface.cpp
+            parser.cpp
+            serialParsedSensor.cpp
             )
 
 include(FetchContent)

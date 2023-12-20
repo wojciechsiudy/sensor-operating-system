@@ -9,6 +9,23 @@
                 "type": "external",
                 "command": "/usr/bin/python3 ./ExamplePySensor.py",
                 "file_timeout": 10
+            },
+            {
+                "name": "binary_ahrs",
+                "type": "serial",
+                "path": "/dev/ttyUSB0",
+                "parser": "./plugin.so",
+                "baudrate": 9600,
+                "timeout": 10000
+            },
+            {
+                "name": "gps",
+                "type": "serial",
+                "path": "/dev/ttyUSB1",
+                "baudrate": 115200,
+                "timeout": 10000,
+                "file_timeout": 10,
+                "regex_filter": "GPGGA|GPGSV"
             }
         ]
 }

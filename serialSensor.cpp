@@ -1,7 +1,7 @@
 #include <iostream>
 #include <regex>
 #include "serialSensor.hpp"
-#include "parserPluginHandler.hpp"
+
 
 SerialSensor::SerialSensor(std::string name, std::string port, int baudrate, uint32_t timeout) : Sensor(name) {
     this->serial.setPort(port);
@@ -23,38 +23,27 @@ void SerialSensor::reciveLine() {
         this->pushData(std::make_shared<SerialData>(line));
 }
 
-void SerialSensor::reciveAndProcessStream() {
-    //ParserInterface resources;
-    //ParserPluginHandler parserHandler(this->getParserPath());
 
-    while(! this->getStopFlag()) {
-
-
-        //this->serial.read(resources.byteBuffer, 1); /* read byte after byte */
-
-        
-    }
-    //@todo: send stop command to plugin
-
-    this->pushData(std::make_shared<SerialData>(":)"));
-}
 
 void SerialSensor::run() {
-    try {
-        if (!this->serial.isOpen()) this->serial.open();
+    prepareSerialConnection();
+
+    while (! this->getStopFlag()) {
+        reciveLine();
     }
-    catch (serial::IOException e) {
+}
+
+void SerialSensor::prepareSerialConnection()
+{
+    try
+    {
+        if (!this->serial.isOpen())
+            this->serial.open();
+    }
+    catch (serial::IOException e)
+    {
         std::string errorMessage = "Serial port " + this->serial.getPort() + " is unavaliable";
         throw std::runtime_error(errorMessage);
-    }
-
-    if (this->isParserEnabled()) {
-        reciveAndProcessStream();
-    }
-    else {
-        while (! this->getStopFlag()) {
-        reciveLine();
-        }
     }
 }
 

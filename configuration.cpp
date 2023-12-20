@@ -5,6 +5,7 @@
 #include "configuration.hpp"
 #include "externalSensor.hpp"
 #include "serialSensor.hpp"
+#include "serialParsedSensor.hpp"
 #include "utils.hpp"
 
 using json = nlohmann::json;
@@ -71,12 +72,23 @@ std::shared_ptr<Sensor> Configuration::createSensorFromJson(json json) {
         );
     }
     else if (type == "serial") {
-        sensor = std::make_shared<SerialSensor>(
-            json["name"],
-            json["path"],
-            json["baudrate"],
-            json["timeout"]
-        );
+        if(json.contains("parser")) {
+            sensor = std::make_shared<SerialParsedSensor>(
+                json["name"],
+                json["path"],
+                json["baudrate"],
+                json["timeout"],
+                json["parser"]
+            );
+        }
+        else {
+            sensor = std::make_shared<SerialSensor>(
+                json["name"],
+                json["path"],
+                json["baudrate"],
+                json["timeout"]
+            );
+        }
 
         if (json.contains("regex_filter")) {
             sensor.get()->enableRegexFilter(json["regex_filter"]);
@@ -95,10 +107,6 @@ std::shared_ptr<Sensor> Configuration::createSensorFromJson(json json) {
 
     if(json.contains("file_timeout")) {
         sensor.get()->enableFileTimeout(json["file_timeout"]);
-    }
-
-    if(json.contains("parser")) {
-        sensor.get()->enableParser(json["parser"]);
     }
 
     return sensor;

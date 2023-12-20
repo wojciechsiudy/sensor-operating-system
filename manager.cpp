@@ -34,7 +34,7 @@ std::string Manager::getLastValuesOfAllSensors(){
 
 void Manager::stopSensors() {
     for (auto& sensor : this->sensors) {
-        sensor.get()->stop();
+        sensor->stop();
     }
 }
 

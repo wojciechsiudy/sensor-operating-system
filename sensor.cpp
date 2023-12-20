@@ -1,5 +1,6 @@
 #include "sensor.hpp"
 #include "logger.hpp"
+#include "utils.hpp"
 
 Sensor::Sensor(std::string name)
 {
@@ -51,9 +52,4 @@ std::chrono::seconds Sensor::getFileTimeout() {
 void Sensor::enableRegexFilter(std::string regex) {
     this->enableRegexFilterFlag = true;
     this->regexFilter = regex;
-}
-
-void Sensor::enableParser(std::string path) {
-    this->enableParserFlag = true;
-    this->parserPath = path;
 }

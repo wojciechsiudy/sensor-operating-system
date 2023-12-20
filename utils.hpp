@@ -12,5 +12,10 @@ std::string makeFilenameWritableTime(std::chrono::time_point<std::chrono::system
 
 void clearOutput();
 
+struct EmptyBuffer : public std::exception {
+   const char * what () const throw () {
+      return "Buffer is empty";
+   }
+};
 
 #endif
