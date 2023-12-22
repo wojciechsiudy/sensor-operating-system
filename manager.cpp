@@ -18,6 +18,7 @@ void Manager::runSensors() {
     for (auto& sensor : this->sensors) {
         this->sensor_threads.emplace_back(&Sensor::run, sensor.get());
     }
+    systemReady = true;
 }
 
 std::string Manager::getLastValuesOfAllSensors(){

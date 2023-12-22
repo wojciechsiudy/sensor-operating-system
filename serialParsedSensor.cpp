@@ -22,20 +22,20 @@ void SerialParsedSensor::run() {
     std::jthread parserThread([&](){parser->parse();});
 
     std::vector<uint8_t> intermediateBuffer;
-    while (! this->getStopFlag()) {
+    while (! this->getStopFlag() && parser->getRunToken()) {
         serial.read(intermediateBuffer); // load from serial
         parser->putByte(intermediateBuffer.back()); // transfer to plugin
         intermediateBuffer.pop_back();
         if (getStopFlag()) parser->stopParser();
-        auto data = parser->reciveLastProcessedData();
-        // try {
-        //     pushData(std::make_shared<SerialData>(
-        //         parser->reciveLastProcessedData()
-        //     ));
-        // }
-        // catch (EmptyBuffer) {}
+        try {
+            pushData(std::make_shared<SerialData>(
+                parser->reciveLastProcessedData()
+            ));
+        }
+        catch (EmptyBuffer) {}
         intermediateBuffer.clear();
     }
-    std::cout << "SerialParsedSensor stop req";
+    std::cout << "SerialParsedSensor stop requesting...\n";
     parser->stopParser();
+    std::cout << "SerialParsedSensor stop requested.\n";
 }

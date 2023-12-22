@@ -16,6 +16,7 @@ class Manager {
         std::list<std::jthread> sensor_threads;
 
         std::list<std::shared_ptr<Serializer>> serializers;
+        std::atomic<bool> systemReady = false;
     public:
         Manager();
 
@@ -24,6 +25,8 @@ class Manager {
         std::string getLastValuesOfAllSensors();
 
         void stopSensors();
+
+        bool isReady() {return systemReady;}
 
     private:
         void createSerializers();

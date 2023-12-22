@@ -62,6 +62,7 @@ void ExternalSensor::run() {
             this->buffer[bytesRead] = '\0';
             this->pushData(std::make_shared<TextData>(buffer));
         }
-        kill(pid, SIGTERM);  // send SIGTERM to the child process
+        // SIGINT must be handled by external sensor
+        // otherwise program will hang.
     }
 }

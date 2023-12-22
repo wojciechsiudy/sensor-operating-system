@@ -44,8 +44,9 @@ public:
     // start and stop methods
 
     virtual void parse() = 0;
-    void stopParser() { runToken = false; }
+    void stopParser() { runToken = false; parsedDataConditionVariable.notify_all(); }
 
+    bool getRunToken() {return runToken;}
 };
 
 #endif
