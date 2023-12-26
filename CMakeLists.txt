@@ -41,13 +41,12 @@ FetchContent_Declare(
 )
 FetchContent_makeavailable(json)
 
-
-
 target_link_libraries(sensor-operating-system
                       serial)
 
-include_directories(/home/wojtek/studia/inzynier/sensor-operating-system/build/_deps/serial-src/include
-  /home/wojtek/studia/inzynier/sensor-operating-system/build/_deps/json-src/include)
+include_directories(
+  ${CMAKE_CURRENT_LIST_DIR}/build/_deps/json-src/include/
+  ${CMAKE_CURRENT_LIST_DIR}/build/_deps/serial-src/include/)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

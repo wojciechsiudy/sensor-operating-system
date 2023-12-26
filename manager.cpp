@@ -2,16 +2,9 @@
 #include "manager.hpp"
 #include "serialSensor.hpp"
 
-
 Manager::Manager() {
-    Configuration::getConfiguration()->load("/home/wojtek/studia/inzynier/sensor-operating-system/sos_config.json"); //@todo: pass as command line argument
-    Configuration::getConfiguration()->print();
-
     this->sensors = Configuration::getConfiguration()->createSensors();
-    this->createSerializers();
 }
-
-
 
 void Manager::runSensors() {
     std::cout << "Sensors amount: " << this->sensors.size() << std::endl;
@@ -39,8 +32,8 @@ void Manager::stopSensors() {
     }
 }
 
-void Manager::createSerializers() {
+void Manager::createSerializers(std::string outputPath) {
     for (auto& sensor : sensors) {
-        serializers.emplace_back(std::make_shared<Serializer>(sensor));
+        serializers.emplace_back(std::make_shared<Serializer>(sensor, outputPath));
     }
 }

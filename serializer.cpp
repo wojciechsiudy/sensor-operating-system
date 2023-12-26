@@ -3,8 +3,10 @@
 #include "configuration.hpp"
 #include "utils.hpp"
 
-Serializer::Serializer(std::shared_ptr<Sensor>& sensor) {
+Serializer::Serializer( std::shared_ptr<Sensor>& sensor,
+                        std::string directoryName) {
     this->sensorReference = sensor;
+    this->outputDirectoryName = directoryName;
 
     if (sensorReference.expired()) {
         throw std::runtime_error("Sensor expired!");

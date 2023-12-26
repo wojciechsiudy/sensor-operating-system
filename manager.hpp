@@ -28,8 +28,7 @@ class Manager {
 
         bool isReady() {return systemReady;}
 
-    private:
-        void createSerializers();
+        void createSerializers(std::string outputPath = "output");
 };
 
 #endif
