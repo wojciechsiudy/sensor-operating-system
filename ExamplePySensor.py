@@ -23,7 +23,7 @@ class QueueHandler:
     def put(self, message: any):
         try:
             self.mq.send(str(message))
-        except (posix_ipc.SignalError, RuntimeError):
+        except (posix_ipc.SignalError):
             pass
 
 
@@ -34,4 +34,5 @@ if __name__ == "__main__":
         sentence = "Message " + str(i) + " from python node"
         qh.put(str(sentence))
         i += 1
-        #time.sleep(1)
+        for x in range(1, 100000): # non-blocking sleep
+            y = x + 2

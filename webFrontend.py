@@ -20,7 +20,7 @@ def get_message_age(message):
     now = int(time() * 1e6)
     message_time = get_time_stamp(message)
     return now - message_time
-    
+
 
 class Sensor:
     def __init__(self, topic, extra_values=""):
@@ -88,9 +88,9 @@ def index():
         page += "<p>" + sensor.extra_values + "</p>\n"
         try:
         	last_two_values = sensor.get_last_value()
-        	page += "<p> last value: " + str(last_two_values[0].split("|")[1]) + "<br>\n"
-        	page += "Δt [μs]: " + str(get_T(last_two_values[1], last_two_values[0])) + "<br>\n"
-        	page += "age [μs]: " + str(get_message_age(last_two_values[0])) + "</p>\n"
+            page += "<p> last value: " + str(last_two_values[0].split("|")[1]) + "<br>\n"
+            page += "Δt [μs]: " + str(get_T(last_two_values[1], last_two_values[0])) + "<br>\n"
+            page += "age [μs]: " + str(get_message_age(last_two_values[0])) + "</p>\n"
         except UnicodeDecodeError:
         	page += "<p>unicode error</p>\n"
         except IndexError:
