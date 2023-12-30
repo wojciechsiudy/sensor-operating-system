@@ -3,14 +3,6 @@
 #include "parser.hpp"
 #include "utils.hpp"
 
-            // std::unique_lock<std::mutex> lock(bytesMutex);
-            // bytesContitionVariable.wait(lock, [this]{ return !byteBuffer.empty(); });
-
-            // std::string data(byteBuffer.begin(), byteBuffer.end());
-            // parsedDataBuffer.push_back(data);
-
-            // byteBuffer.clear();
-
 // bytes producer
 void Parser::putByte(unsigned char byte) {
     std::unique_lock<std::mutex> lock(bytesMutex);

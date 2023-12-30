@@ -11,7 +11,7 @@ public:
     virtual void parse() override {
         while (runToken) {
             auto tmp = swallowByte();
-            putParsedData(std::to_string(tmp));
+            putParsedData("0.54335,-1.43141,3.31512");
         }
     };
 };
