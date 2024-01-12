@@ -15,7 +15,7 @@ std::shared_ptr<Data> Sensor::getAndPopNextData()
         throw EmptyBuffer();
     }
     auto tmp = this->dataBuffer.front();
-    this->dataBuffer.pop();
+    dataBuffer.pop();
     return tmp;
 }
 

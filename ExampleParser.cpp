@@ -11,13 +11,12 @@ public:
     virtual void parse() override {
         while (runToken) {
             auto tmp = swallowByte();
-            putParsedData("0.54335,-1.43141,3.31512");
+            //do parsing
+            putParsedData("some_data");
         }
     };
 };
 
-
-// class factory
 
 extern "C" Parser* create() {
     return new ExampleParser();
