@@ -25,6 +25,7 @@ class Configuration {
     std::string name;
     std::string version;
     std::string author;
+    u_int max_buffer_size = 1024;
     json sensors = json::array();
 
     std::chrono::time_point<std::chrono::system_clock> createTime;
@@ -41,6 +42,7 @@ public:
     void print();
     std::string getStartTimeString();
     std::list<std::shared_ptr<Sensor>> createSensors();
+    u_int getMaxBufferSize() {return max_buffer_size;};
 private:
     std::shared_ptr<Sensor> createSensorFromJson(json json);
     mqqtSettings parseMqqtSettings(json input);

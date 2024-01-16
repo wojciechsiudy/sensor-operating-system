@@ -1,10 +1,12 @@
 #include "sensor.hpp"
 #include "logger.hpp"
 #include "utils.hpp"
+#include "configuration.hpp"
 
 Sensor::Sensor(std::string name)
 {
     this->name = name;
+    this->max_buffer_size = Configuration::getConfiguration()->getMaxBufferSize();
 }
 
 std::shared_ptr<Data> Sensor::getAndPopNextData()
@@ -32,6 +34,9 @@ std::weak_ptr<Data> Sensor::getLatestData()
 void Sensor::pushData(std::shared_ptr<Data> data)
 {
     std::lock_guard<std::mutex> lock(this->dataMutex);
+
+    while (dataBuffer.size() > max_buffer_size) dataBuffer.pop();
+
     this->dataBuffer.push(std::move(data));
 }
 

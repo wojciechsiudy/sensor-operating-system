@@ -42,6 +42,8 @@ class Sensor {
 
         bool enableParserFlag = false;
         std::string parserPath;
+
+        u_int max_buffer_size = 1024;
     public:
 
         Sensor() = default;

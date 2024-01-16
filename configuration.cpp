@@ -38,6 +38,10 @@ void Configuration::load(const std::string& filename) {
         this->author = json_data["author"];
         this->sensors = json_data["sensors"];
 
+        if(json_data.contains("max_buffer_size")) {
+            this->max_buffer_size = json_data["max_buffer_size"];
+        }
+
         if(json_data.contains("mqqt_server")) {
 
         }
